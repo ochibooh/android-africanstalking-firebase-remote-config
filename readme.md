@@ -1,2 +1,3 @@
-# android-africanstalking-firebase-remote-config
-Storing credentials to Africanstalking in Firebase remote config
+# Android: Secure credentials using Firebase Remote Config
+
+
