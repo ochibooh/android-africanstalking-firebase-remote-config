@@ -7,3 +7,5 @@
 /captures
 .externalNativeBuild
 .cxx
+/misc/key/
+/app/release/
