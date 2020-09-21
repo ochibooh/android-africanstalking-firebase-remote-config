@@ -13,26 +13,20 @@ import lombok.extern.java.Log;
 
 @Log
 public class PhoneUtils {
-    private PhoneNumberUtil util;
-
     private static PhoneUtils instance;
 
-    public static PhoneUtils getInstance(@NonNull Context context) {
+    public static PhoneUtils getInstance() {
         if (instance == null) {
-            instance = new PhoneUtils(context);
+            instance = new PhoneUtils();
         }
         return instance;
     }
 
-    public PhoneUtils(@NonNull Context context) {
-        this.util = PhoneNumberUtil.createInstance(context);
-    }
-
-    public Phonenumber.PhoneNumber phone(@NonNull Integer countryCode, @NonNull String phoneNumber){
+    public Phonenumber.PhoneNumber phone(@NonNull Context context, @NonNull Integer countryCode, @NonNull String phoneNumber){
         AtomicReference<Phonenumber.PhoneNumber> res = new AtomicReference<>(null);
         try {
             Phonenumber.PhoneNumber p = new Phonenumber.PhoneNumber().setCountryCode(countryCode).setNationalNumber(Long.parseLong(phoneNumber));
-            if (util.isValidNumber(p)){
+            if (PhoneNumberUtil.createInstance(context).isValidNumber(p)){
                 res.set(p);
             }
         } catch (Exception e){
@@ -41,9 +35,10 @@ public class PhoneUtils {
         return res.get();
     }
 
-    public Phonenumber.PhoneNumber phone(@NonNull String countryIso, @NonNull String phoneNumber){
+    public Phonenumber.PhoneNumber phone(@NonNull Context context, @NonNull String countryIso, @NonNull String phoneNumber){
         AtomicReference<Phonenumber.PhoneNumber> res = new AtomicReference<>(null);
         try {
+            PhoneNumberUtil util = PhoneNumberUtil.createInstance(context);
             Phonenumber.PhoneNumber p = util.parse(phoneNumber, countryIso);
             if (util.isValidNumber(p)){
                 res.set(p);
@@ -54,9 +49,10 @@ public class PhoneUtils {
         return res.get();
     }
 
-    public String format(@NonNull Phonenumber.PhoneNumber phoneNumber, @NonNull PhoneNumberUtil.PhoneNumberFormat format){
+    public String format(@NonNull Context context, @NonNull Phonenumber.PhoneNumber phoneNumber, @NonNull PhoneNumberUtil.PhoneNumberFormat format){
         AtomicReference<String> res = new AtomicReference<>(null);
         try {
+            PhoneNumberUtil util = PhoneNumberUtil.createInstance(context);
             if (util.isValidNumber(phoneNumber)){
                 res.set(util.format(phoneNumber, format));
             }

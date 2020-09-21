@@ -13,9 +13,6 @@ public class SharedUtils {
         return instance;
     }
 
-    public SharedUtils() {
-    }
-
     public boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty();
     }

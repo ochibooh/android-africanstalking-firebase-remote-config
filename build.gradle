@@ -3,6 +3,9 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url  "http://dl.bintray.com/africastalking/java"
+        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.1"
