@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/smsMessagesPage">
+
+    <fragment
+        android:id="@+id/smsMessagesPage"
+        android:name="com.ochibooh.mobile.tutorial.credential.remote.config.view.pages.SmsMessagesPage"
+        android:label="page_sms_messages"
+        tools:layout="@layout/page_sms_messages" >
+        <action
+            android:id="@+id/messagesToView"
+            app:destination="@id/smsMessageViewPage"
+            app:launchSingleTop="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/smsMessageViewPage"
+        android:name="com.ochibooh.mobile.tutorial.credential.remote.config.view.pages.SmsMessageViewPage"
+        android:label="page_sms_message_view"
+        tools:layout="@layout/page_sms_message_view"/>
+</navigation>
