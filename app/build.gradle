@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 30
@@ -56,6 +57,11 @@ dependencies {
     /* work */
     implementation 'androidx.work:work-runtime:2.4.0'
     androidTestImplementation 'androidx.work:work-testing:2.4.0'
+    /* navigation */
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    /* lifecycle */
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
     /* retrofit */
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'

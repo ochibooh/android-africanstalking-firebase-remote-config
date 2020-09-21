@@ -11,6 +11,7 @@ import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 
 import com.ochibooh.mobile.tutorial.credential.remote.config.config.retrofit.RetrofitConfigurer;
+import com.ochibooh.mobile.tutorial.credential.remote.config.data.http.SendSmsResponse;
 import com.ochibooh.mobile.tutorial.credential.remote.config.integ.at.AfricasTalkingService;
 import com.ochibooh.mobile.tutorial.credential.remote.config.model.SmsMessage;
 import com.ochibooh.mobile.tutorial.credential.remote.config.work.SmsMessageSaveWorker;
@@ -63,9 +64,9 @@ public class SmsUtils {
                 if (recipients.size() > 0 && !SharedUtils.getInstance().isNullOrEmpty(message)) {
                     AfricasTalkingService africasTalkingService = RetrofitConfigurer.getAfricasTalking(baseUrl).create(AfricasTalkingService.class);
                     africasTalkingService.sendSms(apiKey, username, TextUtils.join(",", recipients), message)
-                            .enqueue(new Callback<SmsMessage>() {
+                            .enqueue(new Callback<SendSmsResponse>() {
                                 @Override
-                                public void onResponse(@NonNull Call<SmsMessage> call, @NonNull Response<SmsMessage> response) {
+                                public void onResponse(@NonNull Call<SendSmsResponse> call, @NonNull Response<SendSmsResponse> response) {
                                     log.log(Level.INFO, String.format("Send sms response [ %s ]", response));
                                     if (response.isSuccessful() && response.code() == 200) {
 
@@ -75,7 +76,7 @@ public class SmsUtils {
                                 }
 
                                 @Override
-                                public void onFailure(@NonNull Call<SmsMessage> call, @NonNull Throwable t) {
+                                public void onFailure(@NonNull Call<SendSmsResponse> call, @NonNull Throwable t) {
                                     log.log(Level.SEVERE, String.format("Send sms error [ %s ]", t.getMessage()), t);
                                 }
                             });
