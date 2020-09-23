@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.ochibooh.mobile.tutorial.credential.remote.config.R;
 import com.ochibooh.mobile.tutorial.credential.remote.config.databinding.ActivityMainBinding;
 import com.ochibooh.mobile.tutorial.credential.remote.config.lifecycle.MainActivityLifecycleObserver;
@@ -51,7 +53,12 @@ public class MainActivity extends AppCompatActivity {
                     this.viewModel.setTitle(title);
                 }
             });
-            NavigationUI.setupWithNavController(this.binding.toolbar, navController, new AppBarConfiguration.Builder(navController.getGraph()).build());
+            MaterialToolbar toolbar = this.binding.toolbar;
+            toolbar.setNavigationOnClickListener(view -> {
+                log.log(Level.INFO, String.format("Clicked [ %s ]", view.getId()));
+                Navigation.findNavController(view).navigateUp();
+            });
+            NavigationUI.setupWithNavController(toolbar, navController, new AppBarConfiguration.Builder(navController.getGraph()).build());
         }
     }
 }

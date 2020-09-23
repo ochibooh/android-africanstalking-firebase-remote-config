@@ -42,8 +42,6 @@ public class SharedUtils {
             }
         } catch (Exception e) {
             log.log(Level.SEVERE, String.format("Format date error [ %s ]", e.getMessage()), e);
-        } finally {
-            log.log(Level.INFO, String.format("Date format [ %s ]", res.get()));
         }
         return res.get();
     }
