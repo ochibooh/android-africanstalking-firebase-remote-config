@@ -10,6 +10,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.ochibooh.mobile.tutorial.credential.remote.config.R;
 import com.ochibooh.mobile.tutorial.credential.remote.config.databinding.ActivityMainBinding;
 import com.ochibooh.mobile.tutorial.credential.remote.config.lifecycle.MainActivityLifecycleObserver;
@@ -53,5 +55,18 @@ public class MainActivity extends AppCompatActivity {
             });
             NavigationUI.setupWithNavController(this.binding.toolbar, navController, new AppBarConfiguration.Builder(navController.getGraph()).build());
         }
+
+        FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(3600)
+                .build();
+        firebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+        firebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
+        firebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        log.log(Level.WARNING, String.format("Firebase remote config fetch error [ %s ]", task.getException()));
+                    }
+                });
     }
 }

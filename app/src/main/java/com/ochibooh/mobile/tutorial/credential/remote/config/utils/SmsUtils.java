@@ -10,6 +10,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.gson.Gson;
 import com.ochibooh.mobile.tutorial.credential.remote.config.config.retrofit.RetrofitConfigurer;
 import com.ochibooh.mobile.tutorial.credential.remote.config.config.room.RoomDatabaseConfigurer;
@@ -62,9 +63,10 @@ public class SmsUtils {
             smsMessage.setMessage(message);
             smsMessage.setStatus(0);
 
-            String apiKey = "8309831a432e70459020e2bdda63a979fb43ac6930dfa848cadc99e0755a2854";
-            String username = "credential-remote-config";
-            String baseUrl = "https://api.africastalking.com/version1/";
+            FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+            String apiKey = firebaseRemoteConfig.getString("africas_talking_api_key");
+            String username = firebaseRemoteConfig.getString("africas_talking_api_username");
+            String baseUrl = firebaseRemoteConfig.getString("africas_talking_base_url");
             if (!SharedUtils.getInstance().isNullOrEmpty(username) && !SharedUtils.getInstance().isNullOrEmpty(apiKey)) {
                 if (!SharedUtils.getInstance().isNullOrEmpty(recipient) && !SharedUtils.getInstance().isNullOrEmpty(message)) {
                     AfricasTalkingService africasTalkingService = RetrofitConfigurer.getAfricasTalking(baseUrl).create(AfricasTalkingService.class);
