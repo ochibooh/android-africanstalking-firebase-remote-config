@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1051689369852",
+    "firebase_url": "https://decoded-africa.firebaseio.com",
+    "project_id": "decoded-africa",
+    "storage_bucket": "decoded-africa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051689369852:android:783fc50c84e06091849779",
+        "android_client_info": {
+          "package_name": "com.ochibooh.mobile.tutorial.credential.remote.config"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051689369852-cvcfcuubgh2llapk7k3ojcc7bu2p1mmh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ochibooh.mobile.tutorial.credential.remote.config",
+            "certificate_hash": "183ed42633e4da15671ad14a8d536e653fee3262"
+          }
+        },
+        {
+          "client_id": "1051689369852-tn6ba5qfg18ti5s2sdeit6ie4ggc3r68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAahVG9140JRAfWP3E5MeV9nYblxd2_Q0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051689369852-tn6ba5qfg18ti5s2sdeit6ie4ggc3r68.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
