@@ -102,4 +102,8 @@ public class SmsUtils {
     public LiveData<List<SmsMessage>> smsAll(@NonNull Context context) {
         return RoomDatabaseConfigurer.getRepository(context).smsMessageRepository().getAll();
     }
+
+    public LiveData<List<SmsMessage>> smsAllByRecipient(@NonNull Context context, @NonNull String recipient) {
+        return RoomDatabaseConfigurer.getRepository(context).smsMessageRepository().getAllByRecipient(recipient);
+    }
 }

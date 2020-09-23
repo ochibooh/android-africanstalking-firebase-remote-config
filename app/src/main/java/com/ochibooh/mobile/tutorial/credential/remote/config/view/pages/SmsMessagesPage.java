@@ -17,9 +17,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Transaction;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -35,6 +35,7 @@ import com.ochibooh.mobile.tutorial.credential.remote.config.lifecycle.page.SmsM
 import com.ochibooh.mobile.tutorial.credential.remote.config.model.SmsMessage;
 import com.ochibooh.mobile.tutorial.credential.remote.config.utils.PhoneUtils;
 import com.ochibooh.mobile.tutorial.credential.remote.config.utils.SharedUtils;
+import com.ochibooh.mobile.tutorial.credential.remote.config.utils.SmsUtils;
 import com.ochibooh.mobile.tutorial.credential.remote.config.viewmodel.page.SmsMessagesPageViewModel;
 import com.ochibooh.mobile.tutorial.credential.remote.config.work.SmsMessageSendWork;
 
@@ -85,7 +86,7 @@ public class SmsMessagesPage extends Fragment {
     }
 
     private void setup() {
-        Context context = requireContext();
+        Context context = this.requireContext();
 
         this.toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
         this.toast.setGravity(Gravity.BOTTOM, 0, 16);
@@ -162,21 +163,24 @@ public class SmsMessagesPage extends Fragment {
                 .create();
     }
 
+    @Transaction
     private void messagesRecyclerView(@NonNull Context context) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         this.binding.messagesRecyclerView.setLayoutManager(layoutManager);
         this.binding.messagesRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        this.binding.messagesRecyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
-        SmsMessageAdapter adapter = new SmsMessageAdapter(smsMessages);
+        SmsMessageAdapter adapter = new SmsMessageAdapter(context, smsMessages);
         this.binding.messagesRecyclerView.setAdapter(adapter);
 
-        this.viewModel.messages.observe(getViewLifecycleOwner(), messages -> {
-            smsMessages.clear();
-            smsMessages.addAll(messages.stream()
-                    .sorted(Comparator.comparing(SmsMessage::getId).reversed())
-                    .distinct()
-                    .collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(SmsMessage::getRecipient))), ArrayList::new)));
-            adapter.notifyDataSetChanged();
-        });
+        SmsUtils.getInstance().smsAll(context)
+                .observe(getViewLifecycleOwner(), messages -> {
+                    smsMessages.clear();
+                    smsMessages.addAll(messages.stream()
+                            .sorted(Comparator.comparing(sms -> sms.getCreationDate().getTime(), Comparator.reverseOrder()))
+                            .collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(SmsMessage::getRecipient))), ArrayList::new))
+                            .stream()
+                            .sorted(Comparator.comparing(sms -> sms.getCreationDate().getTime(), Comparator.reverseOrder()))
+                            .collect(Collectors.toList()));
+                    adapter.notifyDataSetChanged();
+                });
     }
 }

@@ -6,19 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
 import androidx.databinding.PropertyChangeRegistry;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-
-import com.ochibooh.mobile.tutorial.credential.remote.config.model.SmsMessage;
-import com.ochibooh.mobile.tutorial.credential.remote.config.utils.SmsUtils;
-
-import java.util.List;
 
 public class SmsMessagesPageViewModel extends AndroidViewModel implements Observable {
-    public LiveData<List<SmsMessage>> messages;
-
     public SmsMessagesPageViewModel(@NonNull Application application) {
         super(application);
-        this.messages = SmsUtils.getInstance().smsAll(application.getApplicationContext());
     }
 
     private PropertyChangeRegistry callbacks = new PropertyChangeRegistry();

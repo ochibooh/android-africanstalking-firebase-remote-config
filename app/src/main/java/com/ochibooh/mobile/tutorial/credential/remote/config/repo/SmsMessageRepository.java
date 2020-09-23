@@ -18,4 +18,7 @@ public interface SmsMessageRepository {
 
     @Query(value = "SELECT * FROM " + Constants.TABLE_SMS_MESSAGE)
     LiveData<List<SmsMessage>> getAll();
+
+    @Query(value = "SELECT * FROM " + Constants.TABLE_SMS_MESSAGE + " WHERE recipient = :recipient")
+    LiveData<List<SmsMessage>> getAllByRecipient(String recipient);
 }

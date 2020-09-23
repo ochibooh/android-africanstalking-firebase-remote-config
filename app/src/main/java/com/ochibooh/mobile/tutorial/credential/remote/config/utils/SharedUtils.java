@@ -32,7 +32,15 @@ public class SharedUtils {
             final String timeFormatString = "h:mm aa";
             final String dateTimeFormatString = "EEEE, MMMM d, h:mm aa";
             if (now.get(Calendar.DATE) == smsTime.get(Calendar.DATE) ) {
-                res.set(String.format("Today %s", DateFormat.format(timeFormatString, smsTime)));
+                if (now.get(Calendar.HOUR) == smsTime.get(Calendar.HOUR)) {
+                    if ((now.get(Calendar.MINUTE) - smsTime.get(Calendar.MINUTE)) <= 3) {
+                        res.set("Now");
+                    } else {
+                        res.set(DateFormat.format(timeFormatString, smsTime).toString());
+                    }
+                } else {
+                    res.set(String.format("Today %s", DateFormat.format(timeFormatString, smsTime)));
+                }
             } else if (now.get(Calendar.DATE) - smsTime.get(Calendar.DATE) == 1  ){
                 res.set(String.format("Yesterday %s", DateFormat.format(timeFormatString, smsTime)));
             } else if (now.get(Calendar.YEAR) == smsTime.get(Calendar.YEAR)) {
