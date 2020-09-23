@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class TimestampConverter {
     @TypeConverter
     public String fromTimestamp (Timestamp timestamp){
-        return timestamp != null ? String.valueOf(timestamp.getTime()) : null;
+        return timestamp != null ? timestamp.toString() : null;
     }
 
     @TypeConverter

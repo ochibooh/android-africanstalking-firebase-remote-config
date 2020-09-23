@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Credential Remote Config</string>
+    <string name="phone">Phone</string>
+    <string name="message">Message</string>
 </resources>

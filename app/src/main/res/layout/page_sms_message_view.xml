@@ -15,5 +15,4 @@
         tools:context=".view.pages.SmsMessageViewPage">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

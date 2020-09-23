@@ -11,6 +11,7 @@
         android:name="com.ochibooh.mobile.tutorial.credential.remote.config.view.pages.SmsMessagesPage"
         android:label="page_sms_messages"
         tools:layout="@layout/page_sms_messages" >
+
         <action
             android:id="@+id/messagesToView"
             app:destination="@id/smsMessageViewPage"
@@ -21,5 +22,11 @@
         android:id="@+id/smsMessageViewPage"
         android:name="com.ochibooh.mobile.tutorial.credential.remote.config.view.pages.SmsMessageViewPage"
         android:label="page_sms_message_view"
-        tools:layout="@layout/page_sms_message_view"/>
+        tools:layout="@layout/page_sms_message_view">
+
+        <argument
+            android:name="recipientNumber"
+            app:argType="string"
+            android:defaultValue="View" />
+    </fragment>
 </navigation>

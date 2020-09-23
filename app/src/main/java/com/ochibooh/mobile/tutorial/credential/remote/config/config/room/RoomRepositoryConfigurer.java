@@ -7,7 +7,7 @@ import com.ochibooh.mobile.tutorial.credential.remote.config.model.SmsMessage;
 import com.ochibooh.mobile.tutorial.credential.remote.config.repo.SmsMessageRepository;
 
 @Database(
-        entities = { SmsMessage.class },
+        entities = {SmsMessage.class},
         version = 1
 )
 public abstract class RoomRepositoryConfigurer extends RoomDatabase {

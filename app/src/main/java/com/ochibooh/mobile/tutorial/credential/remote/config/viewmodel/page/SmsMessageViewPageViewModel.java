@@ -1,10 +1,17 @@
 package com.ochibooh.mobile.tutorial.credential.remote.config.viewmodel.page;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
 import androidx.databinding.PropertyChangeRegistry;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.AndroidViewModel;
 
-public class SmsMessageViewPageViewModel extends ViewModel implements Observable {
+public class SmsMessageViewPageViewModel extends AndroidViewModel implements Observable {
+    public SmsMessageViewPageViewModel(@NonNull Application application) {
+        super(application);
+    }
+
     private PropertyChangeRegistry callbacks = new PropertyChangeRegistry();
 
     @Override

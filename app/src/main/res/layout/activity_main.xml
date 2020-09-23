@@ -6,6 +6,8 @@
     tools:shrinkMode="strict">
 
     <data>
+        <import
+            type="com.ochibooh.mobile.tutorial.credential.remote.config.R" />
         <variable
             name="viewModel"
             type="com.ochibooh.mobile.tutorial.credential.remote.config.viewmodel.MainActivityViewModel" />
@@ -16,18 +18,38 @@
         android:layout_height="match_parent"
         tools:context=".view.MainActivity">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            android:fitsSystemWindows="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:liftOnScroll="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="0dp"
+                app:layout_collapseMode="pin"
+                app:title="@{viewModel.title, default=`Messages`}"
+                app:contentInsetStartWithNavigation="0dp"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/main_nav_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_app_bar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_nav_graph" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

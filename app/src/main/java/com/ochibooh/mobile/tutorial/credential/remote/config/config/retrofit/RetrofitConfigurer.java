@@ -2,7 +2,8 @@ package com.ochibooh.mobile.tutorial.credential.remote.config.config.retrofit;
 
 import androidx.annotation.NonNull;
 
-import java.util.concurrent.TimeUnit;
+import com.google.gson.GsonBuilder;
+
 import java.util.logging.Level;
 
 import lombok.extern.java.Log;
@@ -18,8 +19,6 @@ public class RetrofitConfigurer {
         return new OkHttpClient.Builder()
                 .followRedirects(true)
                 .followSslRedirects(true)
-                .readTimeout(5, TimeUnit.SECONDS)
-                .writeTimeout(5, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build();
     }
@@ -29,7 +28,7 @@ public class RetrofitConfigurer {
             africasTalking = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .client(httpClient())
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                     .build();
         }
         if (!africasTalking.baseUrl().toString().equals(baseUrl)) {

@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.ochibooh.mobile.tutorial.credential.remote.config.model.SmsMessage;
-import com.ochibooh.mobile.tutorial.credential.remote.config.utils.constants.RoomTables;
+import com.ochibooh.mobile.tutorial.credential.remote.config.utils.Constants;
 
 import java.util.List;
 
@@ -16,6 +16,6 @@ public interface SmsMessageRepository {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(SmsMessage message);
 
-    @Query(value = "SELECT * FROM " + RoomTables.TABLE_SMS_MESSAGE + " ORDER BY id DESC")
-    LiveData<List<SmsMessage>> getAllOrderByIdDesc();
+    @Query(value = "SELECT * FROM " + Constants.TABLE_SMS_MESSAGE)
+    LiveData<List<SmsMessage>> getAll();
 }

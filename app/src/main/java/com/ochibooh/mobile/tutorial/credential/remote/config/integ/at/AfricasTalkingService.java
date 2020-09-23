@@ -1,15 +1,17 @@
 package com.ochibooh.mobile.tutorial.credential.remote.config.integ.at;
 
-import com.ochibooh.mobile.tutorial.credential.remote.config.data.http.SendSmsResponse;
+import com.ochibooh.mobile.tutorial.credential.remote.config.data.http.response.SendSmsResponse;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Path;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 
 public interface AfricasTalkingService {
-    @GET(value = "/messaging")
+    @Headers(value = {"Accept: application/json"})
+    @POST(value = "messaging")
     @FormUrlEncoded
-    Call<SendSmsResponse> sendSms(@Header("apiKey") String apiKey, @Path("username") String username, @Path("to") String recipients, @Path("message") String message);
+    Call<SendSmsResponse> sendSms(@Header("apiKey") String apiKey, @Field("username") String username, @Field("to") String recipient, @Field("message") String message);
 }
