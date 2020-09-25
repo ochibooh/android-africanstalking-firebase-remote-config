@@ -2,6 +2,6 @@
 <defaultsMap>
     <entry>
         <key>africas_talking_base_url</key>
-        <value>africas_talking_base_url</value>
+        <value>https://api.sandbox.africastalking.com/version1/</value>
     </entry>
 </defaultsMap>
